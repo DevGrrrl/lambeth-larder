@@ -119,17 +119,17 @@ const ResultItems = props => {
   let sortedItemsTime = [];
 
   const sortByTime = () => {
-    if (props.result) {
+    if (props.results) {
       if (props.timeOption === "today" || !props.timeOption) {
-        sortedItemsTime = props.result.filter(function(r) {
+        sortedItemsTime = props.results.filter(function(r) {
           return r[mapTime[day]] !== "Closed";
         });
       } else if (props.timeOption === "tomorrow") {
-        sortedItemsTime = props.result.filter(function(r) {
+        sortedItemsTime = props.results.filter(function(r) {
           return r[mapTime[day + 1]] !== "Closed";
         });
       } else {
-        sortedItemsTime = props.result;
+        sortedItemsTime = props.results;
       }
     }
   };

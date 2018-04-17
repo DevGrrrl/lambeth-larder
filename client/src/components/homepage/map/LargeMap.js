@@ -69,25 +69,25 @@ class LargeMap extends Component {
     let sortedItems = [];
 
     const sortByTime = () => {
-      if (this.props.result) {
-        this.props.result.map(a => {
+      if (this.props.results) {
+        this.props.results.map(a => {
           if (a[mapTime[day]] !== "Closed" && time < a[mapTime[day + 7]]) {
             today.push(a);
           }
         });
-        this.props.result.map(a => {
+        this.props.results.map(a => {
           if (a[mapTime[day + 1]] !== "Closed") {
             tomorrow.push(a);
           }
         });
-        this.props.result.map(a => {
+        this.props.results.map(a => {
           later.push(a);
         });
       }
     };
 
     const getTimeOptionArr = () => {
-      if (this.props.result) {
+      if (this.props.results) {
         if (this.props.timeOption === "today") {
           sortedItems = today;
         } else if (this.props.timeOption === "tomorrow") {
@@ -121,7 +121,7 @@ class LargeMap extends Component {
     let flatten = [];
     const getLatLong = () => {
       //need to check that sortAdice has completed first?//
-      if (sortedItems && this.props.advice) {
+      if (sortedItems && this.props.adviceCentres) {
         advice.map((res, i) => {
           flatten.push({
             key: i,
@@ -129,7 +129,7 @@ class LargeMap extends Component {
             text: res.Name
           });
         });
-      } else if (sortedItems && !this.props.advice) {
+      } else if (sortedItems && !this.Centres) {
         food.map((res, i) => {
           flatten.push({
             key: i,

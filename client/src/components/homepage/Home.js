@@ -86,13 +86,7 @@ const Home = props => {
       </Header>
       {!props.fullScreen ? (
         <div>
-          <MapWindow
-            result={props.results}
-            lat={props.lat}
-            long={props.long}
-            timeOption={props.timeOption}
-            advice={props.adviceCentres}
-          />
+          <MapWindow {...props} />
           <div>
             <MapNavAttribution>
               <MaximiseMap onClick={props.toggleMap}>Map Full</MaximiseMap>
@@ -106,36 +100,13 @@ const Home = props => {
               </Span>
             </MapNavAttribution>
 
-            <SearchForm
-              handleClick={props.handleClick}
-              handlePostcode={props.handlePostcode}
-              handleTime={props.handleTime}
-              toggleAdviceCentres={props.toggleAdviceCentres}
-              adviceCentres={props.adviceCentres}
-              checkPostcode={props.checkPostcode}
-              postcodeErrorMsg={props.postcodeErrorMsg}
-              timeOption={props.timeOption}
-              postcode={props.postcode}
-            />
-            <ResultItems
-              result={props.results}
-              lat={props.lat}
-              long={props.long}
-              timeOption={props.timeOption}
-              adviceCentres={props.adviceCentres}
-            />
+            <SearchForm {...props} />
+            <ResultItems {...props} />
           </div>
         </div>
       ) : (
         <div>
-          <LargeMap
-            toggleMap={props.toggleMap}
-            result={props.results}
-            lat={props.lat}
-            long={props.long}
-            timeOption={props.timeOption}
-            advice={props.adviceCentres}
-          />
+          <LargeMap {...props} />
           <MapNavAttribution>
             <MinimiseMap onClick={props.toggleMap}>Minimise</MinimiseMap>
             <Span>
@@ -153,3 +124,42 @@ const Home = props => {
 };
 
 export default Home;
+
+//Refactor April:
+
+// MapWindow props:
+
+// results={props.results}
+// lat={props.lat}
+// long={props.long}
+// timeOption={props.timeOption}
+// adviceCentres={props.adviceCentres}
+
+// SearchForm props:
+
+// handleClick={props.handleClick}
+// handlePostcode={props.handlePostcode}
+// handleTime={props.handleTime}
+// toggleAdviceCentres={props.toggleAdviceCentres}
+// adviceCentres={props.adviceCentres}
+// checkPostcode={props.checkPostcode}
+// postcodeErrorMsg={props.postcodeErrorMsg}
+// timeOption={props.timeOption}
+// postcode={props.postcode}
+
+//ResultItems  props:
+
+// results={props.results}
+// lat={props.lat}
+// long={props.long}
+// timeOption={props.timeOption}
+// adviceCentres={props.adviceCentres}
+
+// LargeMap props: 
+
+// toggleMap={props.toggleMap}
+// results={props.results}
+// lat={props.lat}
+// long={props.long}
+// timeOption={props.timeOption}
+// adviceCentres={props.adviceCentres}

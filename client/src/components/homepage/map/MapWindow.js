@@ -23,8 +23,10 @@ class MapWindow extends Component {
     this.state = {
       currentZoomLevel: zoomLevel
     };
+    console.log('The props inside mapwindow ',props)
   }
 
+  
 
 
   componentDidMount() {
@@ -64,22 +66,22 @@ class MapWindow extends Component {
     let sortedItemsTime = [];
 
     const sortByTime = () => {
-      if (this.props.result) {
+      if (this.props.results) {
         if (this.props.timeOption === "today") {
-          sortedItemsTime = this.props.result.filter(function(r) {
+          sortedItemsTime = this.props.results.filter(function(r) {
             return r[mapTime[day]] !== "Closed";
           });
         } else if (this.props.timeOption === "tomorrow") {
-          sortedItemsTime = this.props.result.filter(function(r) {
+          sortedItemsTime = this.props.results.filter(function(r) {
             return r[mapTime[day + 1]] !== "Closed";
           });
         } else {
-          sortedItemsTime = this.props.result;
+          sortedItemsTime = this.props.results;
         }
       }
     };
 
-    if (this.props.result) {
+    if (this.props.results) {
       sortByTime();
     }
 
@@ -103,7 +105,7 @@ class MapWindow extends Component {
     let flatten = [];
     const getLatLong = () => {
       //need to check that sortAdice has completed first?//
-      if (sortedItemsTime && this.props.advice) {
+      if (sortedItemsTime && this.props.adviceCentres) {
         advice.map((res, i) => {
           flatten.push({
             key: i,
@@ -112,7 +114,7 @@ class MapWindow extends Component {
           });
         });
 
-      } else if(sortedItemsTime && !this.props.advice) {
+      } else if(sortedItemsTime && !this.props.adviceCentres) {
 
         food.map((res, i) => {
           flatten.push({

@@ -19,7 +19,6 @@ const Navbar = () => {
   return (
     <div>
       <Nav>
-        {/* replace this with icon? */}
         <a href="http://www.lambethlarder.org">LAMBETH LARDER</a>
       </Nav>
     </div>
