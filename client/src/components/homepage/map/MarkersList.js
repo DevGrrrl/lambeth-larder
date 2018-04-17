@@ -1,8 +1,8 @@
 import React from "react";
 import PopUpMarker from "./PopUpMarker";
 
-const MarkersList = ({ map, flatten }) => {
-  const items = flatten.map(({ key, ...props }) => (
+const MarkersList = ({ map, array }) => {
+  const items = array.map(({ key, ...props }) => (
     <PopUpMarker key={key} map={map} {...props} />
   ));
   return <div>{items}</div>;

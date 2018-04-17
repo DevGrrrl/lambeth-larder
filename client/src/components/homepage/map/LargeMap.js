@@ -3,25 +3,19 @@ import { Map, TileLayer } from "react-leaflet";
 import MarkersList from "./MarkersList";
 import styles from "../../../assets/styles/style.css";
 
-
-const mapboxToken = "pk.eyJ1IjoiZGV2Z3JycmwiLCJhIjoiY2plNjFyOTVnMmlmdDJ3anJyZWtzYWtlYiJ9.-wfqcqne9aj8roI0gAAz7g"
-
+const mapboxToken =
+  "pk.eyJ1IjoiZGV2Z3JycmwiLCJhIjoiY2plNjFyOTVnMmlmdDJ3anJyZWtzYWtlYiJ9.-wfqcqne9aj8roI0gAAz7g";
 
 const zoomLevel = 13;
 
 const d = new Date();
 const day = d.getDay(); // returns the current day as a value between 0-6 where Sunday = 0
-const hours = d.getHours();
-const minutes = d.getMinutes();
-const time = `${hours}:${minutes}`;
 
 class LargeMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentZoomLevel: zoomLevel,
-      lat: 51.45628,
-      lng: -0.10546
+      currentZoomLevel: zoomLevel
     };
   }
 
@@ -38,10 +32,9 @@ class LargeMap extends Component {
   }
 
   render() {
-
-    
-    const url = 'https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=' + mapboxToken;
-
+    const url =
+      "https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=" +
+      mapboxToken;
 
     const attr =
       'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>';
@@ -63,86 +56,64 @@ class LargeMap extends Component {
       13: "Saturday_Close"
     };
 
-    let today = [];
-    let tomorrow = [];
-    let later = [];
-    let sortedItems = [];
+    let sortedItemsTime = [];
 
-    const sortByTime = () => {
-      if (this.props.results) {
-        this.props.results.map(a => {
-          if (a[mapTime[day]] !== "Closed" && time < a[mapTime[day + 7]]) {
-            today.push(a);
-          }
-        });
-        this.props.results.map(a => {
-          if (a[mapTime[day + 1]] !== "Closed") {
-            tomorrow.push(a);
-          }
-        });
-        this.props.results.map(a => {
-          later.push(a);
-        });
-      }
-    };
+    //sort by today/tomorrow/later
 
-    const getTimeOptionArr = () => {
-      if (this.props.results) {
-        if (this.props.timeOption === "today") {
-          sortedItems = today;
-        } else if (this.props.timeOption === "tomorrow") {
-          sortedItems = tomorrow;
-        } else {
-          sortedItems = later;
-        }
+    if (this.props.results) {
+      if (this.props.timeOption === "today") {
+        sortedItemsTime = this.props.results.filter(r => {
+          return r[mapTime[day]] !== "Closed";
+        });
+      } else if (this.props.timeOption === "tomorrow") {
+        sortedItemsTime = this.props.results.filter(
+          r => r[mapTime[day + 1]] !== "Closed"
+        );
       } else {
+        sortedItemsTime = this.props.results;
       }
-    };
+    }
 
-    sortByTime();
-    getTimeOptionArr();
-
-    //added on Friday 21st//
     let advice = [];
     let food = [];
 
-    const sortByAdvice = () => {
-      if (sortedItems) {
-        food = sortedItems.filter(function(item) {
-          return item.FoodCentre === "true";
-        });
-        advice = sortedItems.filter(function(item) {
-          return item.FoodCentre === "false";
-        });
-      }
-    };
-    sortByAdvice();
-    //----------------------------//
-    let flatten = [];
-    const getLatLong = () => {
-      //need to check that sortAdice has completed first?//
-      if (sortedItems && this.props.adviceCentres) {
-        advice.map((res, i) => {
-          flatten.push({
-            key: i,
-            position: [+res.Lat, +res.Long],
-            text: res.Name
-          });
-        });
-      } else if (sortedItems && !this.Centres) {
-        food.map((res, i) => {
-          flatten.push({
-            key: i,
-            position: [+res.Lat, +res.Long],
-            text: res.Name
-          });
-        });
-      }
-    };
+    //toggle Advice Centres
 
-    getLatLong();
+    if (sortedItemsTime) {
+      food = sortedItemsTime.filter(function(item) {
+        return item.FoodCentre === "true";
+      });
+      advice = sortedItemsTime.filter(function(item) {
+        return item.FoodCentre === "false";
+      });
+    }
+
+    //----------------------------//
+
+    let flatten = [];
+
+    const getLatLong = () => {
+      if (advice && this.props.adviceCentres) {
+        advice.map((res, i) =>
+          flatten.push({
+            key: i,
+            position: [+res.Lat, +res.Long],
+            text: res.Name
+          })
+        );
+      } else if (food && !this.props.adviceCentres) {
+        food.map((res, i) =>
+          flatten.push({
+            key: i,
+            position: [+res.Lat, +res.Long],
+            text: res.Name
+          })
+        );
+      }
+    };
 
     let centre = [];
+
     if (this.props.lat) {
       centre = [this.props.lat, this.props.long];
     } else {
@@ -160,8 +131,8 @@ class LargeMap extends Component {
           style={{ height: "67vh", width: "100vw" }}
         >
           <TileLayer attribution={attr} url={url} id="mapbox.streets" />
-
-          {flatten.length > 0 && <MarkersList flatten={flatten} />}
+          {getLatLong()}
+          {flatten.length > 0 && <MarkersList array={flatten} />}
         </Map>
       </div>
     );

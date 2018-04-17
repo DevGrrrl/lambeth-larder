@@ -80,7 +80,6 @@ const ResultItems = props => {
   }
   const time = `${hours}:${minutes}`;
 
-
   // mapTime object gives the current day from getDay as the key and returns the corresponding value. ie. today is Tuesday which = 2 so mapTime[2] returns a.Tuesday_Open which gives either "Closed" or it's opening time.
 
   //The closing time is found by getting the day+7 ie. 2: Tuesday_Open, 9: Tuesday_Close
@@ -156,19 +155,16 @@ const ResultItems = props => {
     if (array.length > 0) {
       return array.map(a => {
         return (
-   
           <Flex key={a.Name + a.Description}>
-            <Item >
+            <Item>
               <Title>{a.Name}</Title>
               <p>{a.Description}</p>
               {a.Address_Line_3}
               <br />
-              {props.lat ? (
+              {props.lat && (
                 <span>
                   Distance: {distanceFinder(a, props.lat, props.long)}
                 </span>
-              ) : (
-                console.log(" ")
               )}
               <Times>
                 <img alt="clock" src={clock} width={20} height={20} />

@@ -155,7 +155,7 @@ const DetailedResult = ({ postcode, match, results }) => {
         ? results.map(result => {
             if (result.Name === match.params.name) {
               return (
-                <div>
+                <div  key={result.Name + result.Description}>
                   <Navbar />
                   <Banner src={banner} width={"100%"} />
                   <Wrapper>
@@ -286,8 +286,8 @@ const DetailedResult = ({ postcode, match, results }) => {
                           {result.Sunday_Open === "Closed"
                             ? "Closed"
                             : result.Tuesday_Open === undefined
-                            ? ""
-                            : result.Sunday_Open + "-" + result.Sunday_Close}
+                              ? ""
+                              : result.Sunday_Open + "-" + result.Sunday_Close}
                         </p>
                       </Column>
                     </OpeningHours>
@@ -297,9 +297,10 @@ const DetailedResult = ({ postcode, match, results }) => {
                   </Wrapper>
                 </div>
               );
-            }
+            } 
+            return null;
           })
-        : console.log("there are no matches")}
+        : console.log("there are no results")}
     </Container>
   );
 };

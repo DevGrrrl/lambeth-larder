@@ -59,64 +59,60 @@ class MapWindow extends Component {
 
     let sortedItemsTime = [];
 
-    const sortByTime = () => {
-      if (this.props.results) {
-        if (this.props.timeOption === "today") {
-          sortedItemsTime = this.props.results.filter(function(r) {
-            return r[mapTime[day]] !== "Closed";
-          });
-        } else if (this.props.timeOption === "tomorrow") {
-          sortedItemsTime = this.props.results.filter(function(r) {
-            return r[mapTime[day + 1]] !== "Closed";
-          });
-        } else {
-          sortedItemsTime = this.props.results;
-        }
-      }
-    };
+    //sort by today/tomorrow/later
 
     if (this.props.results) {
-      sortByTime();
+      if (this.props.timeOption === "today") {
+        sortedItemsTime = this.props.results.filter(r => {
+          return r[mapTime[day]] !== "Closed";
+        });
+      } else if (this.props.timeOption === "tomorrow") {
+        sortedItemsTime = this.props.results.filter(
+          r => r[mapTime[day + 1]] !== "Closed"
+        );
+      } else {
+        sortedItemsTime = this.props.results;
+      }
     }
 
     let advice = [];
     let food = [];
 
-    const sortByAdvice = () => {
-      if (sortedItemsTime) {
-        food = sortedItemsTime.filter(function(item) {
-          return item.FoodCentre === "true";
-        });
-        advice = sortedItemsTime.filter(function(item) {
-          return item.FoodCentre === "false";
-        });
-      }
-    };
+    //toggle Advice Centres
 
-    sortByAdvice();
+    if (sortedItemsTime) {
+      food = sortedItemsTime.filter(function(item) {
+        return item.FoodCentre === "true";
+      });
+      advice = sortedItemsTime.filter(function(item) {
+        return item.FoodCentre === "false";
+      });
+    }
+
     //----------------------------//
 
     let flatten = [];
+
     const getLatLong = () => {
-      //need to check that sortAdice has completed first?//
-      if (sortedItemsTime && this.props.adviceCentres) {
-        advice.map((res, i) => {
+      if (advice && this.props.adviceCentres) {
+        advice.map((res, i) =>
           flatten.push({
             key: i,
             position: [+res.Lat, +res.Long],
             text: res.Name
-          });
-        });
-      } else if (sortedItemsTime && !this.props.adviceCentres) {
-        food.map((res, i) => {
+          })
+        );
+      } else if (food && !this.props.adviceCentres) {
+        food.map((res, i) =>
           flatten.push({
             key: i,
             position: [+res.Lat, +res.Long],
             text: res.Name
-          });
-        });
+          })
+        );
       }
     };
+
     let centre = [];
 
     if (this.props.lat) {
@@ -136,10 +132,8 @@ class MapWindow extends Component {
             zoom={zoomLevel}
           >
             <TileLayer attribution={false} url={url} id="mapbox.streets" />
-            {this.props.adviceCentres === true
-              ? getLatLong(advice)
-              : getLatLong(food)}
-            <MarkersList flatten={flatten} />}
+            {getLatLong()}
+            <MarkersList array={flatten} />}
           </Map>
         }
       </MapContainer>
