@@ -25,10 +25,7 @@ class App extends Component {
   componentDidMount() {
     axios.get("/airtable").then(res => {
       const data = [];
-      res.data.map(a => {
-        data.push(a.fields);
-      });
-
+      res.data.map(a => data.push(a.fields));
       this.setState({
         results: data
       });

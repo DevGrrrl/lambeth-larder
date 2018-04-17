@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Map, TileLayer } from "react-leaflet";
 import MarkersList from "./MarkersList";
-import styles from "../../../assets/styles/style.css";
+// import styles from "../../../assets/styles/style.css";
 import styled from "styled-components";
 
 const mapboxToken =
