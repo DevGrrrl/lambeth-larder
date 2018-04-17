@@ -156,8 +156,9 @@ const ResultItems = props => {
     if (array.length > 0) {
       return array.map(a => {
         return (
-          <Flex>
-            <Item key={a.Name + a.Description}>
+   
+          <Flex key={a.Name + a.Description}>
+            <Item >
               <Title>{a.Name}</Title>
               <p>{a.Description}</p>
               {a.Address_Line_3}

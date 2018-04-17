@@ -28,10 +28,12 @@ class App extends Component {
       res.data.map(a => {
         data.push(a.fields);
       });
+
       this.setState({
         results: data
       });
     });
+
     navigator.geolocation.getCurrentPosition(position => {
       this.setState({
         lat: position.coords.latitude,
