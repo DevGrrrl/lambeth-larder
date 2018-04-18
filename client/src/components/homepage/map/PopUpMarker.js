@@ -22,8 +22,8 @@ const style = {
   width: "30%"
 };
 
-const MyPopupMarker = ({ map, position, text }) => (
-  <Marker map={map} position={position} icon={image}>
+const MyPopupMarker = ({ position, text }) => (
+  <Marker position={position} icon={image}>
     <Popup style={style}>
       <a href={"/results/" + text}>
         <Header>{text}</Header>
