@@ -70,6 +70,7 @@ const Banner = styled.img`
 `;
 
 const Voucher = props => {
+  console.log(props)
   return (
     <Div>
       <Navbar />
