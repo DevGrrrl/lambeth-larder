@@ -48,12 +48,13 @@ I can search by location, date and time
 
 ## Build Sprint ## 
 
-Tech Stack
-Node
-Express
-React
-React-Leaflet
-Airtable
+### Tech Stack ###
+
+- Node
+- Express
+- React
+- React-Leaflet
+- Airtable
 
 
 ## Outcome ##
@@ -63,8 +64,9 @@ The app is now live, check it out: (https://lambeth-larder-emergency-food.heroku
 We had a mobile First approach focusing on android/chrome in the first sprint
 
 ## What we learned ##
-How React-Leaflet, Mapbox & Open Street Map work together
-How to use React (shout out to Stephen Grider) :tada: :tada: :tada:
+
+- How React-Leaflet, Mapbox & Open Street Map work together
+- How to use React (shout out to Stephen Grider) :tada: :tada: :tada:
 
 ## Second Sprint ##
 
