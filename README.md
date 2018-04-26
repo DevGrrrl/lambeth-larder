@@ -1,6 +1,7 @@
 # LambethLarder ![](https://travis-ci.org/caralemony/lambeth-larder.svg?branch=master)
 ## A project for Lambeth Larder, helping users to locate local sources of emergency food and advice. ##
 
+This forked from a group project I created with 2 other people from Founders & Coders. I'm refactoring the code here. 
 
 https://lambeth-larder-emergency-food.herokuapp.com/
 
